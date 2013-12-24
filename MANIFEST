@@ -1,0 +1,12 @@
+Changes
+LICENSE
+Leptonica.xs
+MANIFEST
+META.yml
+Makefile.PL
+README
+dist.ini
+inc/LeptonicaMakeMaker.pm
+lib/Image/Leptonica.pm
+ppport.h
+typemap
