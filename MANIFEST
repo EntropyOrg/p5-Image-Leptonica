@@ -9,4 +9,5 @@ dist.ini
 inc/LeptonicaMakeMaker.pm
 lib/Image/Leptonica.pm
 ppport.h
+t/version.t
 typemap

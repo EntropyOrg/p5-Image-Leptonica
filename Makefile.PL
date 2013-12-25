@@ -28,10 +28,12 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "TEST_REQUIRES" => {},
+  "TEST_REQUIRES" => {
+    "Test::More" => 0
+  },
   "VERSION" => "0.001",
   "test" => {
-    "TESTS" => ""
+    "TESTS" => "t/*.t"
   }
 );
 $WriteMakefileArgs{CONFIGURE} = sub {
