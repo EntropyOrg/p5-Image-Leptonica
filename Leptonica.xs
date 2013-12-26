@@ -38,3 +38,7 @@ write(Image::Leptonica::Pix self, const char* filename)
 		/* TODO uses default format */
 		RETVAL = pixWrite(filename, self, IFF_DEFAULT);
 	OUTPUT: RETVAL
+
+DESTROY(Image::Leptonica::Pix self)
+	CODE:
+		pixDestroy(self);
