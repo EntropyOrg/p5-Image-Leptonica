@@ -8,6 +8,8 @@ README
 dist.ini
 inc/LeptonicaMakeMaker.pm
 lib/Image/Leptonica.pm
+lib/Image/Leptonica/Pix.pm
 ppport.h
+t/pix.t
 t/version.t
 typemap
