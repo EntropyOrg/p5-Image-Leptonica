@@ -33,7 +33,7 @@ read(SV* self, const char* filename)
 	OUTPUT: RETVAL
 
 i_l_error
-write(Image__Leptonica__Pix self, const char* filename)
+write(PIX* self, const char* filename)
 	CODE:
 		/* TODO uses default format */
 		RETVAL = pixWrite(filename, self, IFF_DEFAULT);
