@@ -32,6 +32,24 @@ read(SV* self, const char* filename)
 		RETVAL = pixRead(filename);
 	OUTPUT: RETVAL
 
+Image::Leptonica::Pix
+apply_morph(Image::Leptonica::Pix self)
+	INIT:
+		SEL         *sel;
+		SELA        *sela;
+		U32         index;
+		Image__Leptonica__Pix pixd;
+	CODE:
+		sela = selaAddBasic(NULL);
+		selaFindSelByName(sela, "sel_9h", &index, &sel);
+		selWriteStream(stderr, sel);
+		pixd  = pixCreateTemplate(pixs);
+		pixDilate(pixd, pixs, sel);
+		/* NOTE: since this came from the selaFindSelByName(), we can not call selDestroy(&sel); */
+		selaDestroy(sela);
+		RETVAL = pixd;
+	OUTPUT: RETVAL
+
 i_l_error
 write(Image::Leptonica::Pix self, const char* filename)
 	CODE:
