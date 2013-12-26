@@ -12,6 +12,8 @@
 typedef HV* Image__Leptonica;          /* Image::Leptonica */
 typedef PIX* Image__Leptonica__Pix;    /* Image::Leptonica::Pix */
 
+typedef int i_l_error;
+
 MODULE = Image::Leptonica      PACKAGE = Image::Leptonica
 
 PROTOTYPES: ENABLE
@@ -26,7 +28,13 @@ MODULE = Image::Leptonica      PACKAGE = Image::Leptonica::Pix
 
 Image::Leptonica::Pix
 read(SV* self, const char* filename)
-	INIT:
 	CODE:
 		RETVAL = pixRead(filename);
+	OUTPUT: RETVAL
+
+i_l_error
+write(Image__Leptonica__Pix self, const char* filename)
+	CODE:
+		/* TODO uses default format */
+		RETVAL = pixWrite(filename, self, IFF_DEFAULT);
 	OUTPUT: RETVAL
