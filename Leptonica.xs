@@ -22,7 +22,7 @@ version(SV* self)
 		RETVAL = getLeptonicaVersion();
 	OUTPUT: RETVAL
 
-MODULE = Image::Leptonica      PACKAGE = Image::Leptonica::IO
+MODULE = Image::Leptonica      PACKAGE = Image::Leptonica::Pix
 
 Image::Leptonica::Pix
 read(SV* self, const char* filename)
