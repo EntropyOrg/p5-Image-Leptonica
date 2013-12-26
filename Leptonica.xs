@@ -39,6 +39,7 @@ write(Image::Leptonica::Pix self, const char* filename)
 		RETVAL = pixWrite(filename, self, IFF_DEFAULT);
 	OUTPUT: RETVAL
 
+void
 DESTROY(Image::Leptonica::Pix self)
 	CODE:
 		pixDestroy(self);
