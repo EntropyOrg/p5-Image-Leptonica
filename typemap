@@ -7,5 +7,5 @@ FPIX*                       T_PTROBJ
 
 PIXCMAP                     T_PTROBJ
 
-
+i_l_error	T_INT
 
