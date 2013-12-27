@@ -53,6 +53,7 @@ apply_morph(Image::Leptonica::Pix self)
 		/*if(!ret) croak("noooooo... not that threshold!");*/
 		pixd1  = pixCreateTemplate(self);
 		ret = pixDilate(pixd1, self, sel);
+		fprintf(stderr, "%d : %d : %d : %s\n", pixd1->w, pixd1->h, pixd1->d, pixd1->text);
 		if(!ret) croak("dilation?");
 		/* NOTE: since this came from the selaFindSelByName(), we can not call selDestroy(&sel); */
 		/*selaDestroy(sela);*/
