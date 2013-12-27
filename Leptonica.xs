@@ -50,7 +50,7 @@ apply_morph(Image::Leptonica::Pix self)
 		ret = pixDilate(pixd, self, sel);
 		if(!ret) croak("dilation?");
 		/* NOTE: since this came from the selaFindSelByName(), we can not call selDestroy(&sel); */
-		selaDestroy(sela);
+		/*selaDestroy(sela);*/
 		RETVAL = pixd;
 	OUTPUT: RETVAL
 
