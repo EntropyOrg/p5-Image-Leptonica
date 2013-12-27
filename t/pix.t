@@ -9,7 +9,7 @@ use Path::Class;
 my $filename = file("$ENV{HOME}/sw_projects/p5-Image-Leptonica/leptonica-1.69/prog/test1.bmp");
 my $pix = Image::Leptonica::Pix->read($filename);
 
-use DDP; p $pix;
+#use DDP; p $pix;
 
 my $morph = $pix->apply_morph;
 
