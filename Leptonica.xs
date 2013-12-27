@@ -29,7 +29,7 @@ MODULE = Image::Leptonica      PACKAGE = Image::Leptonica::Pix
 Image::Leptonica::Pix
 read(SV* self, const char* filename)
 	CODE:
-		RETVAL = newSVpv(pixRead(filename));
+		RETVAL = pixRead(filename);
 	OUTPUT: RETVAL
 
 Image::Leptonica::Pix
