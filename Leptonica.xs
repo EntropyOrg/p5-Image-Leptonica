@@ -43,7 +43,7 @@ apply_morph(Image::Leptonica::Pix self)
 		sela = selaAddBasic(NULL);
 		selaFindSelByName(sela, "sel_9h", &index, &sel);
 		/*selWriteStream(stderr, sel);*/
-		pixOtsuAdaptiveThreshold(self, 20, 20, 0, 0, 0.0, NULL, NULL);
+		pixOtsuAdaptiveThreshold(self, 20, 20, 0, 0, 0.0, "", "");
 		pixd  = pixCreateTemplate(self);
 		fprintf(stderr, "What now\n");
 		pixDilate(pixd, self, sel);
