@@ -39,11 +39,13 @@ apply_morph(Image::Leptonica::Pix self)
 		SELA        *sela;
 		U32         index;
 		Image__Leptonica__Pix pixd;
+		l_int32 ret;
 	CODE:
 		sela = selaAddBasic(NULL);
 		selaFindSelByName(sela, "sel_9h", &index, &sel);
 		/*selWriteStream(stderr, sel);*/
-		pixOtsuAdaptiveThreshold(self, 20, 20, 0, 0, 0.0, "", "");
+		ret = pixOtsuAdaptiveThreshold(self, 20, 20, 0, 0, 0.0, "", "");
+		if(!ret) croak("noooooo... not that threshold!");
 		fprintf(stderr, "What now\n");
 		pixd  = pixCreateTemplate(self);
 		pixDilate(pixd, self, sel);
