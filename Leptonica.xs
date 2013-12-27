@@ -45,7 +45,8 @@ apply_morph(Image::Leptonica::Pix self)
 		sela = selaAddBasic(NULL);
 		selaFindSelByName(sela, "sel_9h", &index, &sel);
 		/*selWriteStream(stderr, sel);*/
-		ret = pixOtsuAdaptiveThreshold(self, 64, 64, 0, 0, 0.0, "", &pixd0);
+		/*ret = pixOtsuAdaptiveThreshold(self, 64, 64, 0, 0, 0.0, "", &pixd0);*/
+		pixd0 = pixThresholdToBinary(self, 128);
 		fprintf(stderr, "Print\n-------\n\n-----\n-----\n");
 		if(!ret) croak("noooooo... not that threshold!");
 		pixd1  = pixCreateTemplate(self);
