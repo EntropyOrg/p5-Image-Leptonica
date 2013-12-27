@@ -13,6 +13,8 @@ use DDP; p $pix;
 
 my $morph = $pix->apply_morph;
 
+use DDP; p $morph;
+
 my $filename_out = "/tmp/test-image" . ($filename =~ /(\.[^.]*)$/)[0];
 $morph->write( $filename_out );
 
