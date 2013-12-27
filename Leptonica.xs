@@ -29,7 +29,7 @@ MODULE = Image::Leptonica      PACKAGE = Image::Leptonica::Pix
 Image::Leptonica::Pix
 read(SV* self, const char* filename)
 	CODE:
-		RETVAL = SvREFCNT_inc( pixRead(filename) );
+		RETVAL = pixRead(filename);
 	OUTPUT: RETVAL
 
 Image::Leptonica::Pix
@@ -43,12 +43,13 @@ apply_morph(Image::Leptonica::Pix self)
 		sela = selaAddBasic(NULL);
 		selaFindSelByName(sela, "sel_9h", &index, &sel);
 		/*selWriteStream(stderr, sel);*/
+		pixOtsuAdaptiveThreshold(self, 20, 20, 0, 0, 0.0 );
 		pixd  = pixCreateTemplate(self);
 		fprintf(stderr, "What now\n");
 		pixDilate(pixd, self, sel);
 		/* NOTE: since this came from the selaFindSelByName(), we can not call selDestroy(&sel); */
 		selaDestroy(sela);
-		RETVAL = SvREFCNT_inc(pixd);
+		RETVAL = pixd;
 	OUTPUT: RETVAL
 
 i_l_error
