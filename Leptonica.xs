@@ -45,8 +45,8 @@ apply_morph(Image::Leptonica::Pix self)
 		/*selWriteStream(stderr, sel);*/
 		pixOtsuAdaptiveThreshold(self, 20, 20, 0, 0, 0.0, "", "");
 		pixd  = pixCreateTemplate(self);
-		pixDilate(pixd, self, sel);
 		fprintf(stderr, "What now\n");
+		pixDilate(pixd, self, sel);
 		/* NOTE: since this came from the selaFindSelByName(), we can not call selDestroy(&sel); */
 		selaDestroy(sela);
 		RETVAL = pixd;
