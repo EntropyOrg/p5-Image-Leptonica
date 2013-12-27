@@ -13,8 +13,11 @@ use DDP; p $pix;
 
 my $morph = $pix->apply_morph;
 
-$morph->write( "/tmp/test-image" . ($filename =~ /(\.[^.]*)$/)[0] );
+my $filename_out = "/tmp/test-image" . ($filename =~ /(\.[^.]*)$/)[0];
+$morph->write( $filename_out );
 
 isa_ok( $pix, "Image::Leptonica::Pix" );
+isa_ok( $morph, "Image::Leptonica::Pix" );
+ok( -r $filename_out  );
 
 done_testing;
