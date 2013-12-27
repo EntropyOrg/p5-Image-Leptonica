@@ -26,7 +26,7 @@ version(SV* self)
 
 MODULE = Image::Leptonica      PACKAGE = Image::Leptonica::Pix
 
-Image::Leptonica::Pix
+SV*
 read(SV* self, const char* filename)
 	CODE:
 		RETVAL = SvREFCNT_inc( pixRead(filename) );
