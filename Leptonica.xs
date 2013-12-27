@@ -60,4 +60,4 @@ write(Image::Leptonica::Pix self, const char* filename)
 void
 DESTROY(Image::Leptonica::Pix self)
 	CODE:
-		pixDestroy(&self);
+		/*pixDestroy(&self);*/
