@@ -64,7 +64,7 @@ i_l_error
 write(Image::Leptonica::Pix self, const char* filename)
 	CODE:
 		/* TODO uses default format */
-		RETVAL = pixWrite(filename, self, IFF_DEFAULT);
+		RETVAL = pixWrite(filename, self, IFF_PNG);
 	OUTPUT: RETVAL
 
 void
