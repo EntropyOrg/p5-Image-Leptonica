@@ -48,6 +48,7 @@ apply_morph(Image::Leptonica::Pix self)
 		/*ret = pixOtsuAdaptiveThreshold(self, 64, 64, 0, 0, 0.0, "", &pixd0);*/
 		pixd0 = pixThresholdToBinary(self, 128);
 		fprintf(stderr, "Print\n-------\n\n-----\n-----\n");
+		if(NULL == pixd0) croak("noooooo... not that threshold!");
 		/*if(!ret) croak("noooooo... not that threshold!");*/
 		pixd1  = pixCreateTemplate(self);
 		ret = pixDilate(pixd1, pixd0, sel);
