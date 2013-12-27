@@ -49,10 +49,10 @@ apply_morph(Image::Leptonica::Pix self)
 		fprintf(stderr, "%d : %d : %d : %s\n", self->w, self->h, self->d, self->text);
 		/*pixd0 = pixThresholdToBinary(self, 1);*/
 		fprintf(stderr, "Print\n-------\n\n-----\n-----\n");
-		if(NULL == pixd0) croak("noooooo... not that threshold!");
+		/*if(NULL == pixd0) croak("noooooo... not that threshold!");*/
 		/*if(!ret) croak("noooooo... not that threshold!");*/
 		pixd1  = pixCreateTemplate(self);
-		ret = pixDilate(pixd1, pixd0, sel);
+		ret = pixDilate(pixd1, self, sel);
 		if(!ret) croak("dilation?");
 		/* NOTE: since this came from the selaFindSelByName(), we can not call selDestroy(&sel); */
 		/*selaDestroy(sela);*/
