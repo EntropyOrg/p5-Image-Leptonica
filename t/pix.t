@@ -8,6 +8,8 @@ use Path::Class;
 my $filename = file("$ENV{HOME}/sw_projects/p5-Image-Leptonica/leptonica-1.69/prog/1555-3.jpg");
 my $pix = Image::Leptonica::Pix->read($filename);
 
+use DDP; p $pix;
+
 my $morph = $pix->apply_morph;
 
 $morph->write( "/tmp/test-image" . ($filename =~ /(\.[^.]*)$/)[0] );
