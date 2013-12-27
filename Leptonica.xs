@@ -38,21 +38,22 @@ apply_morph(Image::Leptonica::Pix self)
 		SEL         *sel;
 		SELA        *sela;
 		U32         index;
-		Image__Leptonica__Pix pixd;
+		Image__Leptonica__Pix pixd0;
+		Image__Leptonica__Pix pixd1;
 		l_int32 ret;
 	CODE:
 		sela = selaAddBasic(NULL);
 		selaFindSelByName(sela, "sel_9h", &index, &sel);
 		/*selWriteStream(stderr, sel);*/
 		fprintf(stderr, "Print\n-------\n\n-----\n-----\n");
-		ret = pixOtsuAdaptiveThreshold(self, 20, 20, 0, 0, 0.0, "", "");
+		ret = pixOtsuAdaptiveThreshold(self, 20, 20, 0, 0, 0.0, "", &pixd0);
 		if(!ret) croak("noooooo... not that threshold!");
-		pixd  = pixCreateTemplate(self);
-		ret = pixDilate(pixd, self, sel);
+		pixd1  = pixCreateTemplate(self);
+		ret = pixDilate(pixd1, pixd0, sel);
 		if(!ret) croak("dilation?");
 		/* NOTE: since this came from the selaFindSelByName(), we can not call selDestroy(&sel); */
 		/*selaDestroy(sela);*/
-		RETVAL = SvREFCNT_inc(pixd);
+		RETVAL = SvREFCNT_inc(pixd1);
 	OUTPUT: RETVAL
 
 i_l_error
