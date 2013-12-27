@@ -47,7 +47,7 @@ apply_morph(Image::Leptonica::Pix self)
 		/*selWriteStream(stderr, sel);*/
 		/*ret = pixOtsuAdaptiveThreshold(self, 64, 64, 0, 0, 0.0, "", &pixd0);*/
 		fprintf(stderr, "%d : %d : %d : %s\n", self->w, self->h, self->d, self->text);
-		pixd0 = pixThresholdToBinary(self, 1);
+		/*pixd0 = pixThresholdToBinary(self, 1);*/
 		fprintf(stderr, "Print\n-------\n\n-----\n-----\n");
 		if(NULL == pixd0) croak("noooooo... not that threshold!");
 		/*if(!ret) croak("noooooo... not that threshold!");*/
