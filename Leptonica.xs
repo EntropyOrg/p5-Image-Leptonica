@@ -42,8 +42,9 @@ apply_morph(Image::Leptonica::Pix self)
 	CODE:
 		sela = selaAddBasic(NULL);
 		selaFindSelByName(sela, "sel_9h", &index, &sel);
-		selWriteStream(stderr, sel);
+		/*selWriteStream(stderr, sel);*/
 		pixd  = pixCreateTemplate(self);
+		fprintf(stderr, "What now\n");
 		pixDilate(pixd, self, sel);
 		/* NOTE: since this came from the selaFindSelByName(), we can not call selDestroy(&sel); */
 		selaDestroy(sela);
