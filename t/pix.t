@@ -16,7 +16,7 @@ my $morph = $pix->apply_morph;
 use DDP; p $morph;
 
 #my $filename_out = "/tmp/test-image" . ($filename =~ /(\.[^.]*)$/)[0];
-my $filename_out = "/tmp/test-image" . ".tif";
+my $filename_out = "/tmp/test-image" . ".pnm";
 $morph->write( $filename_out );
 
 isa_ok( $pix, "Image::Leptonica::Pix" );
