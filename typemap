@@ -1,1 +1,11 @@
-Image::Leptronica           T_HVREF
+Image::Leptonica            T_HVREF
+
+Image::Leptonica::Pix       T_PTROBJ
+PIX*                        T_PTROBJ
+DPIX*                       T_PTROBJ
+FPIX*                       T_PTROBJ
+
+PIXCMAP                     T_PTROBJ
+
+i_l_error	T_INT
+
