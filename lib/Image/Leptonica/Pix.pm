@@ -1,10 +1,18 @@
 package Image::Leptonica::Pix;
-{
-  $Image::Leptonica::Pix::VERSION = '0.001';
-}
-
+$Image::Leptonica::Pix::VERSION = '0.001';
 use strict;
 use warnings;
+
+sub new {
+	my $class = shift;
+	if( @_ == 1 ) {
+		if( ref $_[0] eq 'Imager' ) {
+
+		} elsif( ref $_[0] eq 'PDL' ) {
+
+		}
+	}
+}
 
 
 1;

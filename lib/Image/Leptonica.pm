@@ -1,8 +1,5 @@
 package Image::Leptonica;
-{
-  $Image::Leptonica::VERSION = '0.001';
-}
-
+$Image::Leptonica::VERSION = '0.001';
 use strict;
 use warnings;
 
