@@ -31,7 +31,9 @@ my %WriteMakefileArgs = (
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
+    "Alien::Leptonica" => 0,
     "DDP" => 0,
+    "Inline" => 0,
     "Path::Class" => 0,
     "Test::More" => 0
   },

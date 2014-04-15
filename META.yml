@@ -3,7 +3,9 @@ abstract: 'image processing library (using the Leptonica library)'
 author:
   - 'Zakariyya Mughal <zmughal@cpan.org>'
 build_requires:
+  Alien::Leptonica: 0
   DDP: 0
+  Inline: 0
   Path::Class: 0
   Test::More: 0
 configure_requires:
