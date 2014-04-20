@@ -1,0 +1,56 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+# TODO:
+# - extract prototypes
+# - extract enums for to make constant subs
+
+use Alien::Leptonica;
+use Path::Class;
+
+sub main {
+	my $l = Alien::Leptonica->new;
+	my ($header_dir) = $l->cflags =~ /-I(\S+)/;
+	$header_dir = dir($header_dir);
+
+	my $all_headers_file = $header_dir->file('allheaders.h');
+	my $all_types_file = $header_dir->file('alltypes.h');
+
+	my @protos = grep { /LEPT_DLL/ } $all_headers_file->slurp();
+	#use DDP; p @protos;
+
+	my $typedefs = {};
+
+	my $types = $all_types_file->slurp;
+	while($types =~ /#include "([^"]+)"/g) {
+		# for all included headers
+		my $filename = $1;
+		my $header = $header_dir->file( $filename );
+		if( -f $header ) {
+			my $lines = $header->slurp;
+			#use DDP; p $lines;
+			my $line_typedefs = get_typedefs($lines);
+			$typedefs = { %$typedefs, %$line_typedefs };
+		}
+	}
+	use DDP; p $typedefs;
+	#use DDP; my $count = scalar keys %$typedefs; p $count;
+	0;
+}
+
+
+
+sub get_typedefs {
+	my ($code) = @_;
+	my $typedefs = {};
+	while( $code =~ /^typedef\s+(.+?)\s+(\S+)\s*;/msg ) {
+		my $typedef = $2;
+		my $type = $1;
+		push @{ $typedefs->{ $typedef } }, $type;
+	}
+	$typedefs;
+}
+
+main;
