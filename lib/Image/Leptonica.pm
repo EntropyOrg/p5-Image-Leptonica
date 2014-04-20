@@ -1,22 +1,10 @@
 package Image::Leptonica;
+# ABSTRACT: image processing library (using the Leptonica library)
 
 use strict;
 use warnings;
 
-use XSLoader;
-XSLoader::load( 'Image::Leptonica', $Image::Leptonica::VERSION );
-
-=method new
-
-Returns a new instance of L<Image::Leptonica>.
-
-=cut
-sub new {
-	bless {}, shift;
-}
-
 1;
-# ABSTRACT: image processing library (using the Leptonica library)
 
 =pod
 
