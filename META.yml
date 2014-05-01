@@ -19,7 +19,6 @@ requires:
   Alien::Leptonica: 0
   ExtUtils::MakeMaker: 6.52
   File::Spec::Functions: 0
-  FindBin: 0
   Inline: 0
   Inline::MakeMaker: 0.45
   strict: 0

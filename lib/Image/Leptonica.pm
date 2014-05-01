@@ -5,9 +5,8 @@ use strict;
 use warnings;
 
 use File::Spec::Functions qw(catfile);
-use FindBin;
 
-use Inline C => catfile($FindBin::Bin, './leptonica.h'),
+use Inline C => catfile(__FILE__, './leptonica.h'),
 	ENABLE => AUTOWRAP =>
 	AUTO_INCLUDE => '#include "allheaders.h"';
 
