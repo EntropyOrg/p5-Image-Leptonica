@@ -78,7 +78,8 @@ sub main {
 	}
 
 	# write out pruned header file
-	my $header_fh = $header_filepath->openw;
+	my $header_fh = $header_filepath->opena;
+	print $header_fh "\n__DATA__\n";
 	for my $prototype (@protos) {
 		print $header_fh $prototype;
 	}
