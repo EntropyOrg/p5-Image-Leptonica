@@ -12,7 +12,8 @@ use Inline;
 our $alien = Alien::Leptonica->new;
 
 Inline->bind( C => file(__FILE__)->dir->file('leptonica.h') =>
-        INC => $alien->cflags, LIBS => $alien->libs,
+        NAME => 'Image::Leptonica' =>
+        INC => $alien->cflags, LIBS => $alien->libs =>
 	ENABLE => AUTOWRAP =>
         AUTO_INCLUDE => '#include "allheaders.h"');
 
