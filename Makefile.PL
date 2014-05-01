@@ -25,19 +25,16 @@ my %WriteMakefileArgs = (
   "NAME" => "Image::Leptonica",
   "PREREQ_PM" => {
     "Alien::Leptonica" => 0,
+    "ExtUtils::MakeMaker" => "6.52",
     "Inline" => 0,
-    "XSLoader" => 0,
+    "Inline::MakeMaker" => "0.45",
     "strict" => 0,
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
-    "Alien::Leptonica" => 0,
-    "DDP" => 0,
-    "Inline" => 0,
-    "Path::Class" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.001",
+  "VERSION" => "0.01",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -51,11 +48,10 @@ $WriteMakefileArgs{CONFIGURE} = sub {
 
 my %FallbackPrereqs = (
   "Alien::Leptonica" => 0,
-  "DDP" => 0,
+  "ExtUtils::MakeMaker" => "6.52",
   "Inline" => 0,
-  "Path::Class" => 0,
+  "Inline::MakeMaker" => "0.45",
   "Test::More" => 0,
-  "XSLoader" => 0,
   "strict" => 0,
   "warnings" => 0
 );

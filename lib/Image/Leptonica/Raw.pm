@@ -1,14 +1,11 @@
-package Image::Leptonica;
-# ABSTRACT: image processing library (using the Leptonica library)
-$Image::Leptonica::VERSION = '0.01';
+package Image::Leptonica::Raw;
+$Image::Leptonica::Raw::VERSION = '0.01';
 use strict;
 use warnings;
 
-use Inline C => './leptonica.h',
+use Inline C => './leptonica.h'
 	ENABLE => AUTOWRAP =>
 	AUTO_INCLUDE => '#include "allheaders.h"';
-
-1;
 
 __END__
 
@@ -18,25 +15,11 @@ __END__
 
 =head1 NAME
 
-Image::Leptonica - image processing library (using the Leptonica library)
+Image::Leptonica::Raw
 
 =head1 VERSION
 
 version 0.01
-
-=head1 SYNOPSIS
-
-  use Image::Leptonica;
-
-  # TODO
-
-=head1 DESCRIPTION
-
-TODO
-
-=head1 SEE ALSO
-
-L<Leptonica|http://www.leptonica.com/>
 
 =head1 AUTHOR
 
