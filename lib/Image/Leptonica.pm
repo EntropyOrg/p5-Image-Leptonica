@@ -6,13 +6,12 @@ use warnings;
 
 use File::Spec::Functions qw(catfile);
 use Path::Class;
-
 use Alien::Leptonica;
-BEGIN {
-  our $alien = Alien::Leptonica->new;
-}
+use Inline;
 
-use Inline C => file(__FILE__)->dir->file('./leptonica.h'),
+our $alien = Alien::Leptonica->new;
+
+bind C => file(__FILE__)->dir->file('./leptonica.h'),
 	ENABLE => AUTOWRAP =>
         INC => $alien->cflags,
         LIBS => $alien->libs,
