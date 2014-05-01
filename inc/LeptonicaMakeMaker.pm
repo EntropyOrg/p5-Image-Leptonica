@@ -1,7 +1,7 @@
 package inc::LeptonicaMakeMaker;
 use Moose;
 
-extends 'Dist::Zilla::Plugin::MakeMaker::Awesome';
+extends qw( Inline::MakeMaker Dist::Zilla::Plugin::MakeMaker::Awesome);
 
 override _build_WriteMakefile_args => sub { +{
     %{ super() },
