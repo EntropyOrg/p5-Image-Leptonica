@@ -78,7 +78,7 @@ sub main {
 
 	# write out pruned header file
 	my $module_fh = $leptonica_pm_filepath->opena;
-	print $module_fh "\n__DATA__\n__C__\n";
+	print $module_fh "\n\n__C__\n";
 	for my $prototype (@protos) {
 		print $module_fh $prototype;
 	}
