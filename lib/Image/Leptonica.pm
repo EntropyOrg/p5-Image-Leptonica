@@ -12,7 +12,7 @@ use Inline;
 our $alien = Alien::Leptonica->new;
 
 my $leptonica_h = file(__FILE__)->dir
-	->file('Leptonica', 'leptonica.h')
+	->file('leptonica.h')
 	->slurp();
 
 Inline->bind( C => $leptonica_h =>
