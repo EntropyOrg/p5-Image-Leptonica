@@ -11,9 +11,11 @@ use Inline;
 
 our $alien = Alien::Leptonica->new;
 
-Inline->bind( C => scalar file(__FILE__)->dir
-		->file('Leptonica', 'leptonica.h')
-		->slurp() =>
+my $leptonica_h = file(__FILE__)->dir
+	->file('Leptonica', 'leptonica.h')
+	->slurp();
+
+Inline->bind( C => $leptonica_h =>
 	NAME => 'Image::Leptonica' =>
 	VERSION => $Image::Leptonica::VERSION =>
 	INC => $alien->cflags, LIBS => $alien->libs =>
