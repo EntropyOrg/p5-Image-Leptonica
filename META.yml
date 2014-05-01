@@ -1,5 +1,5 @@
 ---
-abstract: 'image processing library (using the Leptonica library)'
+abstract: 'bindings to the Leptonica image processing library'
 author:
   - 'Zakariyya Mughal <zmughal@cpan.org>'
 build_requires:

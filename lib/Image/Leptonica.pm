@@ -1,5 +1,5 @@
 package Image::Leptonica;
-# ABSTRACT: image processing library (using the Leptonica library)
+# ABSTRACT: bindings to the Leptonica image processing library
 $Image::Leptonica::VERSION = '0.01';
 use strict;
 use warnings;
@@ -38,7 +38,7 @@ __END__
 
 =head1 NAME
 
-Image::Leptonica - image processing library (using the Leptonica library)
+Image::Leptonica - bindings to the Leptonica image processing library
 
 =head1 VERSION
 
@@ -52,7 +52,8 @@ version 0.01
 
 =head1 DESCRIPTION
 
-TODO
+This module binds to all the functions in the Leptonica image processing
+library. It provides a very raw interface to the C functions.
 
 =head1 SEE ALSO
 

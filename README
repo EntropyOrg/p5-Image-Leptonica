@@ -3,7 +3,7 @@
 This archive contains the distribution Image-Leptonica,
 version 0.01:
 
-  image processing library (using the Leptonica library)
+  bindings to the Leptonica image processing library
 
 This software is copyright (c) 2013 by Zakariyya Mughal.
 
