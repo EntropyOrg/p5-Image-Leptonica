@@ -1,7 +1,6 @@
 package Image::Leptonica;
 # ABSTRACT: image processing library (using the Leptonica library)
-$VERSION = $Image::Leptonica::VERSION;
-
+$Image::Leptonica::VERSION = '0.01';
 use strict;
 use warnings;
 
@@ -14,6 +13,7 @@ our $alien = Alien::Leptonica->new;
 
 Inline->bind( C => file(__FILE__)->dir->file('leptonica.h') =>
         NAME => 'Image::Leptonica' =>
+        VERSION => $Image::Leptonica::VERSION =>
         INC => $alien->cflags, LIBS => $alien->libs =>
 	ENABLE => AUTOWRAP =>
         AUTO_INCLUDE => '#include "allheaders.h"');
