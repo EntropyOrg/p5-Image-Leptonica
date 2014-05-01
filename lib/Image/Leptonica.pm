@@ -11,7 +11,7 @@ use Inline;
 
 our $alien = Alien::Leptonica->new;
 
-Inline->bind( C => 'DATA' =>
+Inline->bind( C => 'END' =>
         NAME => 'Image::Leptonica' =>
         VERSION => $Image::Leptonica::VERSION =>
         INC => $alien->cflags, LIBS => $alien->libs =>
