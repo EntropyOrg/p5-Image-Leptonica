@@ -13,6 +13,7 @@ use Path::Class;
 use FindBin;
 use autodie;
 
+my $leptonica_pm_filepath = file($FindBin::Bin)->parent->subdir('lib', 'Image')->file('Leptonica.pm');
 my $header_filepath = file($FindBin::Bin)->parent->subdir('lib', 'Image')->file('leptonica.h');
 my $typemap_filepath = file($FindBin::Bin)->parent->file('typemap');
 
