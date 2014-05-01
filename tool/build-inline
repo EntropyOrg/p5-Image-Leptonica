@@ -33,6 +33,7 @@ sub main {
 	# FIXME temporary removal to avoid `undefined symbol:
 	# XS_unpack_charPtrPtr` message
 	@protos = grep { $_ !~ /char\s*\*\*/ } @protos;
+	@protos = grep { /getLeptonicaVersion/ } @protos;
 
 	my $typedefs = {};
 
