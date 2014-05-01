@@ -4,7 +4,10 @@ $Image::Leptonica::VERSION = '0.01';
 use strict;
 use warnings;
 
-use Inline C => './leptonica.h',
+use File::Spec qw(catfile);
+use FindBin;
+
+use Inline C => catfile($FindBin::Bin, './leptonica.h'),
 	ENABLE => AUTOWRAP =>
 	AUTO_INCLUDE => '#include "allheaders.h"';
 
