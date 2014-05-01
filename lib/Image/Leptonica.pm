@@ -4,7 +4,7 @@ $Image::Leptonica::VERSION = '0.01';
 use strict;
 use warnings;
 
-use File::Spec qw(catfile);
+use File::Spec::Functions qw(catfile);
 use FindBin;
 
 use Inline C => catfile($FindBin::Bin, './leptonica.h'),
