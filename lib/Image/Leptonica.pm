@@ -5,8 +5,9 @@ use strict;
 use warnings;
 
 use File::Spec::Functions qw(catfile);
+use Path::Class;
 
-use Inline C => catfile(__FILE__, './leptonica.h'),
+use Inline C => file(__FILE__)->dir->file('./leptonica.h'),
 	ENABLE => AUTOWRAP =>
 	AUTO_INCLUDE => '#include "allheaders.h"';
 

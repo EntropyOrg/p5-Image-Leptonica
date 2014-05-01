@@ -29,6 +29,7 @@ my %WriteMakefileArgs = (
     "File::Spec::Functions" => 0,
     "Inline" => 0,
     "Inline::MakeMaker" => "0.45",
+    "Path::Class" => 0,
     "strict" => 0,
     "warnings" => 0
   },
@@ -53,6 +54,7 @@ my %FallbackPrereqs = (
   "File::Spec::Functions" => 0,
   "Inline" => 0,
   "Inline::MakeMaker" => "0.45",
+  "Path::Class" => 0,
   "Test::More" => 0,
   "strict" => 0,
   "warnings" => 0
