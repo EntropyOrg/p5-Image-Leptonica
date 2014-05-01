@@ -31,6 +31,8 @@ sub main {
 	my @protos = map { s/^LEPT_DLL\s*//r; } grep { /^LEPT_DLL/ } $all_headers_file->slurp();
 	#use DDP; p @protos;
 
+	# FIXME temporary removal to avoid `undefined symbol:
+	# XS_unpack_charPtrPtr` message
 	@protos = grep { $_ !~ /char\s*\*\*/ } @protos;
 
 	my $typedefs = {};
