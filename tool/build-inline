@@ -28,7 +28,7 @@ sub main {
 	my $all_types_file = $header_dir->file('alltypes.h');
 
 	# get prototypes
-	my @protos = grep { /LEPT_DLL/ } $all_headers_file->slurp();
+	my @protos = map { s/^LEPT_DLL//; } grep { /^LEPT_DLL/ } $all_headers_file->slurp();
 	#use DDP; p @protos;
 
 	my $typedefs = {};
