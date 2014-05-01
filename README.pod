@@ -1,0 +1,39 @@
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+Image::Leptonica - bindings to the Leptonica image processing library
+
+=head1 VERSION
+
+version 0.01
+
+=head1 SYNOPSIS
+
+  use Image::Leptonica;
+
+  # TODO
+
+=head1 DESCRIPTION
+
+This module binds to all the functions in the Leptonica image processing
+library. It provides a very raw interface to the C functions.
+
+=head1 SEE ALSO
+
+L<Leptonica|http://www.leptonica.com/>
+
+=head1 AUTHOR
+
+Zakariyya Mughal <zmughal@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2014 by Zakariyya Mughal.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
