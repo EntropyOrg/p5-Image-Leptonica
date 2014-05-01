@@ -1,1 +1,1 @@
-LEPT_DLL extern char * getLeptonicaVersion (  );
+extern char * getLeptonicaVersion (  );
