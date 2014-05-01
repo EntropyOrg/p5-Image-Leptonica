@@ -1,6 +1,7 @@
 package Image::Leptonica;
 # ABSTRACT: image processing library (using the Leptonica library)
-$Image::Leptonica::VERSION = '0.01';
+$VERSION = $Image::Leptonica::VERSION;
+
 use strict;
 use warnings;
 
