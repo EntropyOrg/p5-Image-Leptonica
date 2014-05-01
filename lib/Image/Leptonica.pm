@@ -1,5 +1,5 @@
 package Image::Leptonica;
-# ABSTRACT: image processing library (using the Leptonica library)
+# ABSTRACT: bindings to the Leptonica image processing library
 
 use strict;
 use warnings;
@@ -40,8 +40,8 @@ END_BOOT_C
 
 =head1 DESCRIPTION
 
-TODO
-
+This module binds to all the functions in the Leptonica image processing
+library. It provides a very raw interface to the C functions.
 
 =head1 SEE ALSO
 
