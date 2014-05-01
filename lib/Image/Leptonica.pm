@@ -20,7 +20,13 @@ Inline->bind( C => $leptonica_h =>
 	VERSION => $Image::Leptonica::VERSION =>
 	INC => $alien->cflags, LIBS => $alien->libs =>
 	ENABLE => AUTOWRAP =>
-	AUTO_INCLUDE => '#include "allheaders.h"');
+	AUTO_INCLUDE => '#include "allheaders.h"') =>
+	BOOT => <<'END_BOOT_C'
+		HV *stash = gv_stashpvn ("Image::Leptonica::FileFormat", strlen("Image::Leptonica::FileFormat"), TRUE);
+		newCONSTSUB(stash, "IFF_PNM", newSViv (IFF_PNM));
+		newCONSTSUB(stash, "IFF_PNG", newSViv (IFF_PNG));
+END_BOOT_C
+	;
 
 1;
 
