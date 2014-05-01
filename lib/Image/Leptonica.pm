@@ -11,15 +11,14 @@ use Inline;
 
 our $alien = Alien::Leptonica->new;
 
-Inline->bind( C => <<'END_C'
-char * getLeptonicaVersion (  );
-END_C
-=>
-        NAME => 'Image::Leptonica' =>
-        VERSION => $Image::Leptonica::VERSION =>
-        INC => $alien->cflags, LIBS => $alien->libs =>
+Inline->bind( C => scalar file(__FILE__)->dir
+		->file('Leptonica', 'leptonica.h')
+		->slurp() =>
+	NAME => 'Image::Leptonica' =>
+	VERSION => $Image::Leptonica::VERSION =>
+	INC => $alien->cflags, LIBS => $alien->libs =>
 	ENABLE => AUTOWRAP =>
-        AUTO_INCLUDE => '#include "allheaders.h"');
+	AUTO_INCLUDE => '#include "allheaders.h"');
 
 1;
 

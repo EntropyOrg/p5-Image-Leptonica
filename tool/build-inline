@@ -13,7 +13,7 @@ use Path::Class;
 use FindBin;
 use autodie;
 
-my $leptonica_pm_filepath = file($FindBin::Bin)->parent->file('lib', 'Image', 'Leptonica.pm');
+my $header_filepath = file($FindBin::Bin)->parent->subdir('lib', 'Image')->file('leptonica.h');
 my $typemap_filepath = file($FindBin::Bin)->parent->file('typemap');
 
 sub main {
@@ -21,13 +21,14 @@ sub main {
 	my ($header_dir) = $l->cflags =~ /-I(\S+)/;
 	$header_dir = dir($header_dir);
 
+	use DDP; p $header_filepath->stringify;
 	use DDP; p $typemap_filepath->stringify;
 
 	my $all_headers_file = $header_dir->file('allheaders.h');
 	my $all_types_file = $header_dir->file('alltypes.h');
 
 	# get prototypes
-	my @protos = map { s/^LEPT_DLL\s*extern\s*//r; } grep { /^LEPT_DLL/ } $all_headers_file->slurp();
+	my @protos = map { s/^LEPT_DLL\s*//r; } grep { /^LEPT_DLL/ } $all_headers_file->slurp();
 	#use DDP; p @protos;
 
 	# FIXME temporary removal to avoid `undefined symbol:
@@ -77,10 +78,9 @@ sub main {
 	}
 
 	# write out pruned header file
-	my $module_fh = $leptonica_pm_filepath->opena;
-	print $module_fh "\n\n__C__\n";
+	my $header_fh = $header_filepath->openw;
 	for my $prototype (@protos) {
-		print $module_fh $prototype;
+		print $header_fh $prototype;
 	}
 
 
