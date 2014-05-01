@@ -8,6 +8,8 @@ README
 dist.ini
 inc/LeptonicaMakeMaker.pm
 lib/Image/Leptonica.pm
+lib/Image/leptonica.h
 ppport.h
 t/version.t
 tool/build-inline
+typemap
