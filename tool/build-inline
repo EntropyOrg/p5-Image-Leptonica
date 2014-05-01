@@ -14,6 +14,7 @@ use FindBin;
 use autodie;
 
 my $header_filepath = file($FindBin::Bin)->parent->subdir('lib', 'Image')->file('leptonica.h');
+$header_filepath->dir->mkpath;
 my $typemap_filepath = file($FindBin::Bin)->parent->file('typemap');
 
 sub main {
