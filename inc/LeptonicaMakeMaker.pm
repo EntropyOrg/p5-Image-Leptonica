@@ -10,7 +10,7 @@ override _build_WriteMakefile_args => sub { +{
 override _build_WriteMakefile_dump => sub {
 	my $str = super();
 	$str .= <<'END';
-use Inline::MakeMaker; 
+use Inline::MakeMaker;
 $WriteMakefileArgs{CONFIGURE} = sub {
 	require Alien::Leptonica;
 	my $l = Alien::Leptonica->new;

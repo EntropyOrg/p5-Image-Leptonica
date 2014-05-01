@@ -41,7 +41,7 @@ my %WriteMakefileArgs = (
     "TESTS" => "t/*.t"
   }
 );
-use Inline::MakeMaker; 
+use Inline::MakeMaker;
 $WriteMakefileArgs{CONFIGURE} = sub {
 	require Alien::Leptonica;
 	my $l = Alien::Leptonica->new;
