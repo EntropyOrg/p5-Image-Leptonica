@@ -7,8 +7,13 @@ use warnings;
 use File::Spec::Functions qw(catfile);
 use Path::Class;
 
+use Alien::Leptonica;
+our $alien = Alien::Leptonica->new;
+
 use Inline C => file(__FILE__)->dir->file('./leptonica.h'),
 	ENABLE => AUTOWRAP =>
+        INC => $alien->cflags,
+        LIBS => $alien->libs,
 	AUTO_INCLUDE => '#include "allheaders.h"';
 
 1;
