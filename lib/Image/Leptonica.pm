@@ -11,11 +11,10 @@ use Inline;
 
 our $alien = Alien::Leptonica->new;
 
-bind Inline C => file(__FILE__)->dir->file('./leptonica.h'),
+bind Inline C => file(__FILE__)->dir->file('leptonica.h'),
+        INC => $alien->cflags, LIBS => $alien->libs,
 	ENABLE => AUTOWRAP =>
-        INC => $alien->cflags,
-        LIBS => $alien->libs,
-	AUTO_INCLUDE => '#include "allheaders.h"';
+        AUTO_INCLUDE => '#include "allheaders.h"';
 
 1;
 
