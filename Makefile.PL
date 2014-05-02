@@ -25,6 +25,7 @@ my %WriteMakefileArgs = (
   "NAME" => "Image::Leptonica",
   "PREREQ_PM" => {
     "Alien::Leptonica" => 0,
+    "ExtUtils::Depends" => 0,
     "ExtUtils::MakeMaker" => "6.52",
     "File::Spec::Functions" => 0,
     "Inline" => 0,
@@ -36,21 +37,29 @@ my %WriteMakefileArgs = (
   "TEST_REQUIRES" => {
     "Test::More" => 0
   },
-  "VERSION" => "0.01",
+  "VERSION" => "0.02",
   "test" => {
     "TESTS" => "t/*.t"
   }
 );
 use Inline::MakeMaker;
+use ExtUtils::Depends;
 $WriteMakefileArgs{CONFIGURE} = sub {
 	require Alien::Leptonica;
 	my $l = Alien::Leptonica->new;
-	+{ CCFLAGS => $l->cflags, LIBS => $l->libs };
+	my $pkg = ExtUtils::Depends->new('Image::Leptonica',);
+	$pkg->set_inc( $l->cflags );
+	$pkg->set_libs( $l->libs );
+	$pkg->add_typemaps( 'typemap' );
+	dir( qw( lib Image Leptonica ) )->mkpath;
+	$pkg->save_config('Image/Leptonica/IFiles.pm');
+	+{ $pkg->get_makefile_vars()  };
 };
 
 
 my %FallbackPrereqs = (
   "Alien::Leptonica" => 0,
+  "ExtUtils::Depends" => 0,
   "ExtUtils::MakeMaker" => "6.52",
   "File::Spec::Functions" => 0,
   "Inline" => 0,
