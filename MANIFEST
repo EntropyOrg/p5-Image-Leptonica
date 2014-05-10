@@ -4,7 +4,6 @@ LICENSE
 MANIFEST
 META.yml
 Makefile.PL
-NOTE.otl
 README
 dist.ini
 inc/LeptonicaMakeMaker.pm
