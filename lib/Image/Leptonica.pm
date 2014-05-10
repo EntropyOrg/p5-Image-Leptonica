@@ -37,7 +37,6 @@ sub Inline {
 	+{
 		%{ Image::Leptonica::Alien(@_) },
 		TYPEMAPS  => $info->{typemaps},
-		#TYPEMAPS  => [ grep { -f } ( 'typemap', @{ $info->{typemaps} } )],
 	};
 }
 
