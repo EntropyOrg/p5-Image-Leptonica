@@ -22,7 +22,7 @@ $WriteMakefileArgs{CONFIGURE} = sub {
 	$pkg->set_libs( $l->libs );
 	$pkg->add_typemaps( 'typemap' );
 	mkdir catfile qw( lib Image Leptonica );
-	$pkg->save_config( catfile( qw(Image Leptonica IFiles.pm ) ) );
+	$pkg->save_config( catfile( qw(lib Image Leptonica IFiles.pm ) ) );
 	+{ $pkg->get_makefile_vars()  };
 };
 END
