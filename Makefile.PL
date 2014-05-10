@@ -54,6 +54,7 @@ $WriteMakefileArgs{CONFIGURE} = sub {
 	$pkg->set_inc( $l->cflags );
 	$pkg->set_libs( $l->libs );
 	$pkg->add_typemaps( 'typemap' );
+	use DDP; p $pkg;
 	mkdir catfile qw( lib Image Leptonica );
 	$pkg->save_config( catfile( qw(lib Image Leptonica IFiles.pm ) ) );
 	use DDP; p $pkg->get_makefile_vars();
