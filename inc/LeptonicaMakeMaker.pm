@@ -14,6 +14,7 @@ override _build_WriteMakefile_dump => sub {
 use Inline::MakeMaker;
 use ExtUtils::Depends;
 use File::Spec::Functions;
+use File::Path qw(make_path);
 $WriteMakefileArgs{CONFIGURE} = sub {
 	require Alien::Leptonica;
 	my $l = Alien::Leptonica->new;
@@ -23,7 +24,7 @@ $WriteMakefileArgs{CONFIGURE} = sub {
 	$pkg->add_typemaps( 'typemap' );
 	use DDP; p $pkg;
 	my @dir = qw( lib Image Leptonica Install );
-	mkdir catfile @dir;
+	make_path catfile @dir;
 	$pkg->save_config( catfile( @dir, 'Files.pm' ) );
 	use DDP; p $pkg->get_makefile_vars();
 	+{ CCFLAGS => $l->cflags,
