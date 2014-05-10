@@ -36,7 +36,8 @@ sub Inline {
 	our $info = ExtUtils::Depends::load('Image::Leptonica');
 	+{
 		%{ Image::Leptonica::Alien(@_) },
-		TYPEMAPS  => [ grep { -f } ( 'typemap', @{ $info->{typemaps} } )],
+		TYPEMAPS  => $info->{typemaps},
+		#TYPEMAPS  => [ grep { -f } ( 'typemap', @{ $info->{typemaps} } )],
 	};
 }
 
