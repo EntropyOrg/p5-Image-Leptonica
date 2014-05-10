@@ -17,7 +17,7 @@ our $leptonica_h = file(__FILE__)->dir
 Inline->bind( C => $leptonica_h =>
 	NAME => 'Image::Leptonica' =>
 	VERSION => $Image::Leptonica::VERSION =>
-	%{ Alien::Leptonica::Inline(@_) },
+	%{ Image::Leptonica::Alien('C') },
 	ENABLE => AUTOWRAP =>
 	BOOT => <<'END_BOOT_C'
 		HV *stash = gv_stashpvn ("Image::Leptonica::FileFormat", strlen("Image::Leptonica::FileFormat"), TRUE);
@@ -26,12 +26,16 @@ Inline->bind( C => $leptonica_h =>
 END_BOOT_C
 	);
 
+sub Alien {
+	our $alien = Alien::Leptonica->new;
+	Alien::Leptonica::Inline(@_);
+}
+
 sub Inline {
 	return unless $_[0] eq 'C';
-	our $alien = Alien::Leptonica->new;
 	our $info = ExtUtils::Depends::load('Image::Leptonica');
 	+{
-		%{ Alien::Leptonica::Inline(@_) },
+		%{ Image::Leptonica::Alien(@_) },
 		TYPEMAPS  => $info->{typemaps},
 	};
 }
