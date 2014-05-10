@@ -24,7 +24,9 @@ $WriteMakefileArgs{CONFIGURE} = sub {
 	mkdir catfile qw( lib Image Leptonica );
 	$pkg->save_config( catfile( qw(lib Image Leptonica IFiles.pm ) ) );
 	use DDP; p $pkg->get_makefile_vars();
-	+{ $pkg->get_makefile_vars()  };
+	+{ CCFLAGS => $l->cflags,
+	   LIBS => $l->libs,
+	   $pkg->get_makefile_vars()  };
 };
 END
 	$str;
