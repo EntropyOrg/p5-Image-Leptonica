@@ -29,7 +29,7 @@ sub Inline {
 	our $alien = Alien::Leptonica->new;
 	+{
 		%{ Alien::Leptonica::Inline(@_) },
-		TYPEMAPS  => 
+		TYPEMAPS  => '' # TODO
 	}
 }
 

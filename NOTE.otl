@@ -1,0 +1,12 @@
+Inline 'with' support
+	http://irclog.perlgeek.de/pdl/2014-05-02#i_8665341
+	TODO
+		finish EU::D saving in I::L
+			inc/LeptonicaMakeMaker.pm
+		use EU::D for I::L::Inline()
+			lib/Image/Leptonica.pm
+			add typemap
+				make sure typemap is intalled
+				see Gimp CPAN module
+		later can add EU::D to A::L
+			../p5-Alien-Leptonica
