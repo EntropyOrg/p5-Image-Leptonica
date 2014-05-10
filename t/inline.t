@@ -3,10 +3,9 @@ use Test::More;
 use_ok('Image::Leptonica');
 
 SKIP: {
-	plan tests => 1;
 	eval { require 'Inline' };
 
-	skip "Inline not installed" if $@;
+	skip "Inline not installed", 1 if $@;
 
 	Inline->import( with => qw(Image::Leptonica) );
 	Inline->bind( C => q{ extern char * getLeptonicaVersion (  ); },
