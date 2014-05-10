@@ -5,6 +5,7 @@ use_ok('Image::Leptonica');
 SKIP: {
 	eval { require 'Inline' };
 
+	die $@;
 	skip "Inline not installed", 1 if $@;
 
 	Inline->import( with => qw(Image::Leptonica) );
