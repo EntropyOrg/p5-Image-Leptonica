@@ -3,7 +3,7 @@ use Test::More;
 use_ok('Image::Leptonica');
 
 SKIP: {
-	eval { require 'Inline' };
+	eval { require 'Inline.pm' };
 
 	die $@;
 	skip "Inline not installed", 1 if $@;
