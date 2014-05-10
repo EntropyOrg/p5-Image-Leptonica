@@ -1,11 +1,11 @@
 use Test::More;
+use Module::Load;
 
 use_ok('Image::Leptonica');
 
 SKIP: {
-	eval { require 'Inline' } or do {
+	eval { load 'Inline' } or do {
 		my $error = $@;
-		die $error;
 		skip "Inline not installed", 1 if $error;
 	};
 
@@ -13,7 +13,6 @@ SKIP: {
 	Inline->bind( C => q{ extern char * getLeptonicaVersion (  ); },
 		ENABLE => AUTOWRAP => );
 
-		use DDP; diag getLeptonicaVersion();
 	like( getLeptonicaVersion(), qr/^leptonica-/);
 }
 
