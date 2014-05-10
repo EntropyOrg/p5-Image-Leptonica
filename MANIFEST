@@ -11,6 +11,7 @@ inc/LeptonicaMakeMaker.pm
 lib/Image/Leptonica.pm
 lib/Image/leptonica.h
 ppport.h
+t/inline.t
 t/version.t
 tool/build-inline
 typemap
