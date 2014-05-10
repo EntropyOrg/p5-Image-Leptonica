@@ -3,6 +3,7 @@ use Test::More;
 use_ok('Image::Leptonica');
 
 SKIP: {
+	plan tests => 1;
 	eval { require 'Inline' };
 
 	skip "Inline not installed" if $@;
