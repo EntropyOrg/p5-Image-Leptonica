@@ -17,7 +17,9 @@ my %WriteMakefileArgs = (
   "AUTHOR" => "Zakariyya Mughal <zmughal\@cpan.org>",
   "BUILD_REQUIRES" => {},
   "CONFIGURE_REQUIRES" => {
-    "ExtUtils::MakeMaker" => "6.30"
+    "Alien::Leptonica" => 0,
+    "ExtUtils::MakeMaker" => "6.30",
+    "Inline::MakeMaker" => "0.45"
   },
   "DISTNAME" => "Image-Leptonica",
   "EXE_FILES" => [],

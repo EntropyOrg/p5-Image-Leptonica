@@ -5,7 +5,9 @@ author:
 build_requires:
   Test::More: 0
 configure_requires:
+  Alien::Leptonica: 0
   ExtUtils::MakeMaker: 6.30
+  Inline::MakeMaker: 0.45
 dynamic_config: 0
 generated_by: 'Dist::Zilla version 5.015, CPAN::Meta::Converter version 2.133380'
 license: perl
