@@ -15,6 +15,7 @@ use Inline::MakeMaker;
 use ExtUtils::Depends;
 use File::Spec::Functions;
 use File::Path qw(make_path);
+use File::Copy;
 $WriteMakefileArgs{CONFIGURE} = sub {
 	require Alien::Leptonica;
 	my $l = Alien::Leptonica->new;
@@ -22,9 +23,15 @@ $WriteMakefileArgs{CONFIGURE} = sub {
 	$pkg->set_inc( $l->cflags );
 	$pkg->set_libs( $l->libs );
 	$pkg->add_typemaps( 'typemap' );
+
+	# make path to install to
 	my @dir = qw( lib Image Leptonica Install );
 	make_path catfile @dir;
+	# copy typemap into that path
+	copy( 'typemap', catfile( @dir, 'typemap') );
+	# save config to that path
 	$pkg->save_config( catfile( @dir, 'Files.pm' ) );
+
 	+{ CCFLAGS => $l->cflags,
 	   LIBS => $l->libs,
 	   $pkg->get_makefile_vars()  };
