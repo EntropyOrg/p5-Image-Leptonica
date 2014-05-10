@@ -17,7 +17,7 @@ our $leptonica_h = file(__FILE__)->dir
 Inline->bind( C => $leptonica_h =>
 	NAME => 'Image::Leptonica' =>
 	VERSION => $Image::Leptonica::VERSION =>
-	%{ Image::Leptonica::Inline('C') },
+	%{ Alien::Leptonica::Inline(@_) },
 	ENABLE => AUTOWRAP =>
 	BOOT => <<'END_BOOT_C'
 		HV *stash = gv_stashpvn ("Image::Leptonica::FileFormat", strlen("Image::Leptonica::FileFormat"), TRUE);
@@ -29,7 +29,6 @@ END_BOOT_C
 sub Inline {
 	return unless $_[0] eq 'C';
 	our $alien = Alien::Leptonica->new;
-	our $extutil = 
 	my $info = ExtUtils::Depends::load('Image::Leptonica');
 	+{
 		%{ Alien::Leptonica::Inline(@_) },
