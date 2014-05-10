@@ -8,6 +8,7 @@ use File::Spec::Functions qw(catfile);
 use Path::Class;
 use Alien::Leptonica;
 use Inline;
+use ExtUtils::Depends;
 
 our $leptonica_h = file(__FILE__)->dir
 	->file('leptonica.h')
@@ -29,12 +30,11 @@ sub Inline {
 	return unless $_[0] eq 'C';
 	our $alien = Alien::Leptonica->new;
 	our $extutil = 
-	my $pkg = ExtUtils::Depends->new('Image::Leptonica',);
 	my $info = ExtUtils::Depends::load('Image::Leptonica');
 	+{
 		%{ Alien::Leptonica::Inline(@_) },
-		TYPEMAPS  => $info->{typemaps} # TODO
-	}
+		TYPEMAPS  => $info->{typemaps},
+	};
 }
 
 1;
