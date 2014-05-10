@@ -29,7 +29,7 @@ END_BOOT_C
 sub Inline {
 	return unless $_[0] eq 'C';
 	our $alien = Alien::Leptonica->new;
-	my $info = ExtUtils::Depends::load('Image::Leptonica');
+	our $info = ExtUtils::Depends::load('Image::Leptonica');
 	+{
 		%{ Alien::Leptonica::Inline(@_) },
 		TYPEMAPS  => $info->{typemaps},
