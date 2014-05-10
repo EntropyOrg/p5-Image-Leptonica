@@ -11,7 +11,7 @@ SKIP: {
 	Inline->bind( C => q{ extern char * getLeptonicaVersion (  ); },
 		ENABLE => AUTOWRAP => );
 
-		use DDP; p getLeptonicaVersion();
+		use DDP; diag getLeptonicaVersion();
 	like( getLeptonicaVersion(), qr/^leptonica-/);
 }
 
