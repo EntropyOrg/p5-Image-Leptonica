@@ -17,7 +17,7 @@ our $leptonica_h = file(__FILE__)->dir
 Inline->bind( C => $leptonica_h =>
 	NAME => 'Image::Leptonica' =>
 	VERSION => $Image::Leptonica::VERSION =>
-	%{ Image::Leptonica::Alien('C') },
+	%{ Image::Leptonica::Inline('C') },
 	ENABLE => AUTOWRAP =>
 	BOOT => <<'END_BOOT_C'
 		HV *stash = gv_stashpvn ("Image::Leptonica::FileFormat", strlen("Image::Leptonica::FileFormat"), TRUE);
