@@ -14,6 +14,8 @@ t/inline.t
 t/pixread.t
 t/typemap.test
 t/version.t
+test.db
+tool/build-docs
 tool/build-inline
 typemap
 xt/release/pod-coverage.t
