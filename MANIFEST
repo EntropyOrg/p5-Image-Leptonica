@@ -14,3 +14,4 @@ t/inline.t
 t/version.t
 tool/build-inline
 typemap
+xt/release/pod-coverage.t
