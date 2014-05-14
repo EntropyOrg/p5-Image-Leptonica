@@ -31,6 +31,7 @@ sub Alien {
 	Alien::Leptonica::Inline(@_);
 }
 
+
 sub Inline {
 	return unless $_[0] eq 'C';
 	our $info = ExtUtils::Depends::load('Image::Leptonica');
@@ -39,6 +40,7 @@ sub Inline {
 		TYPEMAPS  => $info->{typemaps},
 	};
 }
+
 
 1;
 
