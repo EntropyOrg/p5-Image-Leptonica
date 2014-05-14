@@ -87,6 +87,7 @@ sub main {
 
 	# write out typemap
 	my $typemap_fh = $typemap_filepath->openw;
+	print $typemap_fh "TYPEMAP\n";
 	for my $type (sort keys %$types_to_perl) {
 		print $typemap_fh "$type\t$types_to_perl->{$type}\n" if $types_to_perl->{$type};
 	}
