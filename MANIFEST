@@ -12,6 +12,7 @@ lib/Image/leptonica.h
 ppport.h
 t/inline.t
 t/pixread.t
+t/typemap.test
 t/version.t
 tool/build-inline
 typemap

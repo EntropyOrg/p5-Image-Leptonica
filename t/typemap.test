@@ -1,0 +1,5 @@
+TYPEMAP
+
+PIX*	T_PTROBJ
+char *          T_PV
+const char *          T_PV
