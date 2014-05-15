@@ -3,14 +3,23 @@
 use strict;
 use warnings;
 
+use FindBin qw($Bin);
 use Path::Class;
 use JSON::MaybeXS;
 
 my $json = dir($Bin)->parent->file('doc.json');
 
+my $all_headers = dir($Bin)
+	->subdir( qw(.. .. leptonica-1.70 src))
+	->file('allheaders.h');
+my $d = $all_headers->slurp();
+use DDP; p  $d;
+
 # TODO
 #
-# [_] Find all functions that are in all_headers.h.
+# [_] Find all functions that are in allheaders.h.
 # [_] Find all functions in leptonica.h
 # [_] Mark the difference as NOT IMPLEMENTED
-# [_]
+# [_] LATER: mark some functions as "TODO document" (make a list) because some
+#     are not documented properly [_] only make docs for functions in leptonica.h
+# [_] group the functions by their filename, sorted by name
