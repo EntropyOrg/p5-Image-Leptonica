@@ -9,11 +9,12 @@ use JSON::MaybeXS;
 
 my $json = dir($Bin)->parent->file('doc.json');
 
-my $all_headers = dir($Bin)
+my $all_headers_f = dir($Bin)
 	->subdir( qw(.. .. leptonica-1.70 src))
 	->file('allheaders.h');
-my $d = $all_headers->slurp();
-use DDP; p  $d;
+my $all_headers_f = dir($Bin)
+	->subdir( qw(.. .build latest lib Image Leptonica))
+	->file('leptonica.h');
 
 # TODO
 #
