@@ -1,0 +1,44 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use lib "$ENV{HOME}/sw_projects/doc-experiment/p5-Quiver/lib";
+use FindBin qw($Bin);
+use Path::Class;
+use JSON::MaybeXS;
+use Set::Scalar;
+
+my $json_f = dir($Bin)->parent->file('doc.json');
+
+my $all_headers_f = dir($Bin)
+	->subdir( qw(.. .. leptonica-1.70 src))
+	->file('allheaders.h');
+my $leptonica_h_f = dir($Bin)
+	->subdir( qw(.. Image-Leptonica-0.03 lib Image Leptonica))
+	#->subdir( qw(.. .build latest lib Image Leptonica))
+	->file('leptonica.h');
+
+my $json_data = decode_json( $json_f->slurp );
+
+# Find all functions that are in allheaders.h.
+my $all_fn = get_functions(~~ $all_headers_f->slurp);
+# Find all functions in leptonica.h
+my $lep_fn = get_functions(~~ $leptonica_h_f->slurp);
+# Mark the difference as NOT IMPLEMENTED
+my $not_implemented = $all_fn->difference( $lep_fn );
+
+#use DDP; p $json_data;
+
+# TODO
+#
+# [_] LATER: mark some functions as "TODO document" (make a list) because some
+#     are not documented properly [_] only make docs for functions in leptonica.h
+# [_] group the functions by their filename, sorted by name
+
+sub get_functions {
+	my ($text) = @_;
+	$text =~ s{  /\*   .*?    \*/}{}xgsm;
+	my @list = $text =~ /^[^(]*? (\w+) \s*  \(/xgm;
+	Set::Scalar->new(@list);
+}
