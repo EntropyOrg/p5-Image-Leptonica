@@ -18,7 +18,7 @@ our $leptonica_h = file(__FILE__)->dir
 Inline->bind( C => $leptonica_h =>
 	NAME => 'Image::Leptonica' =>
 	VERSION => $Image::Leptonica::VERSION =>
-	%{ Image::Leptonica::Alien('C') },
+	%{ Image::Leptonica::Inline('C') },
 	ENABLE => AUTOWRAP =>
 	BOOT => <<'END_BOOT_C'
 		HV *stash = gv_stashpvn ("Image::Leptonica::FileFormat", strlen("Image::Leptonica::FileFormat"), TRUE);
@@ -31,17 +31,6 @@ sub Alien {
 	our $alien = Alien::Leptonica->new;
 	Alien::Leptonica::Inline(@_);
 }
-
-sub Inline {
-	return unless $_[0] eq 'C';
-	our $info = ExtUtils::Depends::load('Image::Leptonica');
-	+{
-		%{ Image::Leptonica::Alien(@_) },
-		TYPEMAPS  => $info->{typemaps},
-	};
-}
-
-1;
 
 =pod
 
@@ -60,8 +49,21 @@ library. It provides a very raw interface to the C functions.
 
 This module supports L<Inline's with functionality|Inline/"Playing 'with' Others">.
 
+=cut
+
+sub Inline {
+	return unless $_[0] eq 'C';
+	our $info = ExtUtils::Depends::load('Image::Leptonica');
+	+{
+		%{ Image::Leptonica::Alien(@_) },
+		TYPEMAPS  => $info->{typemaps},
+	};
+}
+
 =head1 SEE ALSO
 
 L<Leptonica|http://www.leptonica.com/>
 
 =cut
+
+1;

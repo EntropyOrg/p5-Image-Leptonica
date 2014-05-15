@@ -74,7 +74,8 @@ sub main {
 	for my $type (keys %$typedefs) {
 		my $perl_type;
 		unless( exists $types_to_perl->{$type} ) {
-			$types_to_perl->{$type} = 'T_PTROBJ';
+			# pointer to type is a T_PTROBJ
+			$types_to_perl->{"$type *"} = 'T_PTROBJ';
 		}
 	}
 
