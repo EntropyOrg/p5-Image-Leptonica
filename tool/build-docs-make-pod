@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use Path::Class;
+use JSON::MaybeXS;
+
+my $json = dir($Bin)->parent->file('doc.json');
+
+# TODO
+#
+# [_] Find all functions that are in all_headers.h.
+# [_] Find all functions in leptonica.h
+# [_] Mark the difference as NOT IMPLEMENTED
+# [_]
