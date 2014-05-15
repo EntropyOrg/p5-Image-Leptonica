@@ -11,6 +11,7 @@ use Inline;
 use ExtUtils::Depends;
 
 our $leptonica_h = file(__FILE__)->dir
+	->subdir('Leptonica')
 	->file('leptonica.h')
 	->slurp();
 
