@@ -8,6 +8,12 @@ use FindBin qw($Bin);
 use Path::Class;
 use JSON::MaybeXS;
 use Set::Scalar;
+use UnderscoreJS;
+use List::UtilsBy qw(sort_by);
+use IO::String;
+use Devel::Assert -all;
+use List::AllUtils qw(first any);
+
 
 my $json_f = dir($Bin)->parent->file('doc.json');
 
@@ -21,24 +27,126 @@ my $leptonica_h_f = dir($Bin)
 
 my $json_data = decode_json( $json_f->slurp );
 
-# Find all functions that are in allheaders.h.
+# Find all functions that are in all_headers.h.
 my $all_fn = get_functions(~~ $all_headers_f->slurp);
 # Find all functions in leptonica.h
 my $lep_fn = get_functions(~~ $leptonica_h_f->slurp);
 # Mark the difference as NOT IMPLEMENTED
 my $not_implemented = $all_fn->difference( $lep_fn );
 
-#use DDP; p $json_data;
+my $json_data_lep = [ grep { $lep_fn->has( $_->{function} ) } @$json_data ];
+$json_data_lep = clean_up($json_data_lep);
+
+# the number of functions in leptonica.h must match the number of functions in
+# the comment data structure
+assert( $lep_fn->size == ~~ @$json_data_lep );
+
+# DEBUG: if the functions occur more than once {{{
+## find all functions that occur more than once
+#my $grouped_by_func = _->group_by($json_data_lep => sub { $_[0]->{function} } );
+#my @multiple_entries = grep { @{ $grouped_by_func->{$_} } > 1 } keys %$grouped_by_func;
+## there should not be any functions that occur more than once [same meaning as the previous test]
+#assert( @multiple_entries == 0 );
+#my @multiple_slice = @$grouped_by_func{ @multiple_entries };
+#use DDP; p @multiple_slice;
+# DEBUG }}}
+
+# group the functions by their filename, sorted by name
+my $grouped_by_file = _->group_by($json_data_lep => sub { $_[0]->{file} } );
+my @files = sort keys %$grouped_by_file;
+#@files = grep { $_ ne 'xtractprotos.c' } @files; # filter out
+
+my @func_wrong;
+my $doc_output = IO::String->new;
+my $merge = {
+	'utils.c' => [
+		{ functions => [ qw( startTimerNested stopTimerNested ) ], merge => 1 },
+		{ functions => [ qw( startTimer stopTimer ) ], merge => 1 },
+	]
+};
+for my $file (@files) {
+	my $file_func = $grouped_by_file->{$file};
+
+	print $doc_output "=head1 C<$file>\n\n";
+	print $doc_output "=over 4\n\n";
+
+	my $file_func_sort = [ sort_by { $_->{function} } @$file_func ];
+	for my $func (@$file_func_sort) {
+		my $text = comment_inner_text( $func->{comment} );
+
+		# need to make sure the comment begins with the function name
+		if($text =~ /^(\n|\s|\*)*$func->{function}/s) {
+			#use DDP; p $func;
+			print $doc_output "=item $func->{function}\n\n";
+			print $doc_output $text;
+			print $doc_output "\n\n";
+		} else {
+			my $merge_file = $merge->{$file};
+			if( any { $_->{functions} }  @$merge_file;
+			push @func_wrong, $func;
+			#print "====== something is wrong\n"
+		}
+
+	}
+	print $doc_output "=back\n\n";
+}
+use DDP; p @func_wrong;
+my $s = @func_wrong; use DDP; p $s;
 
 # TODO
 #
 # [_] LATER: mark some functions as "TODO document" (make a list) because some
 #     are not documented properly [_] only make docs for functions in leptonica.h
-# [_] group the functions by their filename, sorted by name
 
 sub get_functions {
-	my ($text) = @_;
+	my ($code) = @_;
+	my $text = $code;
 	$text =~ s{  /\*   .*?    \*/}{}xgsm;
 	my @list = $text =~ /^[^(]*? (\w+) \s*  \(/xgm;
 	Set::Scalar->new(@list);
 }
+
+sub comment_inner_text {
+	my ($comment) = @_;
+
+	my $text = $comment;
+
+	$text =~ s,
+		^/\* # start of comment
+		!?
+		\s*  # whitespace [opt]
+		\**  # any number of stars
+		,,gsx;
+	$text =~ s,
+		\**  # any number of stars
+		\s*  # whitespace [opt]
+		\*/$ # end of comment
+		,,gsx;
+	$text =~ s,^\s*\*+,,gms;
+	$text;
+}
+
+sub clean_up {
+	my ($fn) = @_;
+	# get rid of little-endian versions of same functions
+	my $little_endian_f = Set::Scalar->new(qw(convertOnLittleEnd16 convertOnLittleEnd32 convertOnBigEnd16 convertOnBigEnd32));
+	# if a function is in $little_endian_f and has L_LITTLE_ENDIAN in its comment, it will be removed
+	my $cleaned = [ grep { not $little_endian_f->has($_->{function}) && $_->{comment} =~ /L_LITTLE_ENDIAN/ } @$fn ];
+
+	# these functions have versions that are under a WIN32 ifdef but are
+	# documented under Unix version too with a comment that begins with
+	# "/*!"
+	my $need_bang_comment = Set::Scalar->new(qw(startTimer getFilenamesInDirectory stopTimerNested l_getCurrentTime startTimerNested stopTimer));
+	# if a function is in $need_bang_comment and does not have /*! in its comment, it will be removed
+	$cleaned = [ grep { not $need_bang_comment->has($_->{function}) && $_->{comment} !~ m,/\*!, } @$cleaned ];
+
+	# find pixWriteStreamWebP in webpio.c
+	my $pixWriteStreamWebP = first { $_->{function} eq 'pixWriteStreamWebP' && $_->{file} eq 'webpio.c' } @$cleaned;
+	assert( defined $pixWriteStreamWebP );
+	$pixWriteStreamWebP->{comment} =~ s/\QpixWriteStreampWebP()\E/pixWriteStreamWebP()/; # spelling fix
+
+	$cleaned;
+}
+
+
+
