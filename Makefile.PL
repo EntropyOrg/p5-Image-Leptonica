@@ -37,7 +37,6 @@ my %WriteMakefileArgs = (
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
-    "DDP" => 0,
     "Module::Load" => 0,
     "Test::More" => 0
   },
@@ -75,7 +74,6 @@ $WriteMakefileArgs{CONFIGURE} = sub {
 
 my %FallbackPrereqs = (
   "Alien::Leptonica" => 0,
-  "DDP" => 0,
   "ExtUtils::Depends" => 0,
   "ExtUtils::MakeMaker" => "6.52",
   "File::Spec::Functions" => 0,
