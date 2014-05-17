@@ -34,6 +34,7 @@ my $lep_fn = get_functions(~~ $leptonica_h_f->slurp);
 # Mark the difference as NOT IMPLEMENTED
 my $not_implemented = $all_fn->difference( $lep_fn );
 
+# only make docs for functions in leptonica.h
 my $json_data_lep = [ grep { $lep_fn->has( $_->{function} ) } @$json_data ];
 $json_data_lep = clean_up($json_data_lep);
 
@@ -54,18 +55,38 @@ assert( $lep_fn->size == ~~ @$json_data_lep );
 # group the functions by their filename, sorted by name
 my $grouped_by_file = _->group_by($json_data_lep => sub { $_[0]->{file} } );
 my @files = sort keys %$grouped_by_file;
-#@files = grep { $_ ne 'xtractprotos.c' } @files; # filter out
 
-my @func_wrong;
-my $doc_output = IO::String->new;
 my $merge = {
 	'utils.c' => [
 		{ functions => [ qw( startTimerNested stopTimerNested ) ], merge => 1 },
 		{ functions => [ qw( startTimer stopTimer ) ], merge => 1 },
+		{ functions => [ qw( convertOnLittleEnd32 convertOnBigEnd32 ) ], merge => 1 }, # text?
+		{ functions => [ qw( convertOnBigEnd16 convertOnLittleEnd16 ) ], merge => 1 }, # text?
 	]
 };
+
+# collect all functions that are not documented properly while iterating
+my @func_not_doc;
+# mark some functions as "to document" (make a list) because some are not
+# documented properly
+my $not_documented = Set::Scalar->new(qw(
+	boxChangeRefcount boxGetRefcount nextOnPixelInRasterLow dpixChangeRefcount
+	dpixCopyResolution dpixGetData dpixGetRefcount dpixGetResolution dpixGetWpl
+	dpixSetData dpixSetResolution dpixSetWpl fpixChangeRefcount fpixCopyResolution
+	fpixGetData fpixGetRefcount fpixGetResolution fpixGetWpl fpixSetData
+	fpixSetResolution fpixSetWpl fpixFlipLR pixChangeRefcount pixCopyInputFormat
+	pixCopyResolution pixCopyText pixGetColormap pixGetDepth pixGetHeight
+	pixGetInputFormat pixGetRefcount pixGetSpp pixGetWidth pixGetWpl pixGetXRes
+	pixGetYRes pixScaleResolution pixSetDepth pixSetHeight pixSetInputFormat
+	pixSetWidth pixSetWpl pixSetXRes pixSetYRes l_psWriteBoundingBox
+	ptaChangeRefcount ptaGetRefcount rotateAMColorCornerLow rotateAMColorLow
+	rotateAMGrayCornerLow rotateAMGrayLow l_chooseDisplayProg
+));
+
+my $doc_output = IO::String->new;
 for my $file (@files) {
 	my $file_func = $grouped_by_file->{$file};
+
 
 	print $doc_output "=head1 C<$file>\n\n";
 	print $doc_output "=over 4\n\n";
@@ -74,6 +95,18 @@ for my $file (@files) {
 	for my $func (@$file_func_sort) {
 		my $text = comment_inner_text( $func->{comment} );
 
+		# TODO this can be more efficient
+		my $in_merge = 0;
+		my $merge_file = $merge->{$file};
+		for my $func_info (@$merge_file) {
+			if( any { $_ eq $func->{function} } @{$func_info->{functions}} ) {
+				$in_merge = 1;
+				last;
+			}
+
+		}
+		next if $in_merge; # skipping these for now
+
 		# need to make sure the comment begins with the function name
 		if($text =~ /^(\n|\s|\*)*$func->{function}/s) {
 			#use DDP; p $func;
@@ -81,22 +114,17 @@ for my $file (@files) {
 			print $doc_output $text;
 			print $doc_output "\n\n";
 		} else {
-			my $merge_file = $merge->{$file};
-			if( any { $_->{functions} }  @$merge_file;
-			push @func_wrong, $func;
+			push @func_not_doc, $func unless $in_merge;
 			#print "====== something is wrong\n"
 		}
 
 	}
 	print $doc_output "=back\n\n";
 }
-use DDP; p @func_wrong;
-my $s = @func_wrong; use DDP; p $s;
+assert( $not_documented->size == @func_not_doc );
+#use DDP; p @func_not_doc;
+#my $s = [ map { $_->{function} } @func_not_doc ]; use DDP; p $s;
 
-# TODO
-#
-# [_] LATER: mark some functions as "TODO document" (make a list) because some
-#     are not documented properly [_] only make docs for functions in leptonica.h
 
 sub get_functions {
 	my ($code) = @_;
@@ -144,6 +172,12 @@ sub clean_up {
 	my $pixWriteStreamWebP = first { $_->{function} eq 'pixWriteStreamWebP' && $_->{file} eq 'webpio.c' } @$cleaned;
 	assert( defined $pixWriteStreamWebP );
 	$pixWriteStreamWebP->{comment} =~ s/\QpixWriteStreampWebP()\E/pixWriteStreamWebP()/; # spelling fix
+
+	for my $captext (qw(sarrayGetRefcount sarrayChangeRefcount l_dnaChangeRefcount l_dnaGetRefcount numaChangeRefcount numaGetRefcount)) {
+		my $cap_f = first { $_->{function} eq $captext } @$cleaned;
+		assert( defined $cap_f );
+		$cap_f->{comment} =~ s/\Q$captext()\E/$captext()/i; # capitalisation fix
+	}
 
 	$cleaned;
 }
