@@ -14,21 +14,26 @@ use IO::String;
 use Devel::Assert -all;
 use List::AllUtils qw(first any);
 
+# TODO
+# [_] Write out each set of functions to an appropriate .pm file
+# [_] get the indexes out of each .c file and
 
-my $json_f = dir($Bin)->parent->file('doc.json');
 
-my $all_headers_f = dir($Bin)
-	->subdir( qw(.. .. leptonica-1.70 src))
+my $top = dir($Bin)->parent;
+my $json_f = $top->file('doc.json');
+
+my $all_headers_f = $top
+	->subdir( qw(.. leptonica-1.70 src))
 	->file('allheaders.h');
-my $leptonica_h_f = dir($Bin)
-	->subdir( qw(.. Image-Leptonica-0.03 lib Image Leptonica))
+my $leptonica_h_f = $top
+	->subdir( qw(Image-Leptonica-0.03 lib Image Leptonica))
 	#->subdir( qw(.. .build latest lib Image Leptonica))
 	->file('leptonica.h');
 
 my $json_data = decode_json( $json_f->slurp );
 
 # Find all functions that are in all_headers.h.
-my $all_fn = get_functions(~~ $all_headers_f->slurp);
+my ($func_to_sig,$all_fn) = get_functions(~~ $all_headers_f->slurp);
 # Find all functions in leptonica.h
 my $lep_fn = get_functions(~~ $leptonica_h_f->slurp);
 # Mark the difference as NOT IMPLEMENTED
@@ -83,19 +88,26 @@ my $not_documented = Set::Scalar->new(qw(
 	rotateAMGrayCornerLow rotateAMGrayLow l_chooseDisplayProg
 ));
 
-my $doc_output = IO::String->new;
 for my $file (@files) {
+	my $doc_output = IO::String->new;
+
 	my $file_func = $grouped_by_file->{$file};
 
+	my ($pm_file, $pm_info) = get_pm_info($file);
+
+	print $doc_output "package $pm_info;\n\n";
 
 	print $doc_output "=head1 C<$file>\n\n";
+
+	print $doc_output "=head1 FUNCTIONS\n\n";
+
 	print $doc_output "=over 4\n\n";
 
 	my $file_func_sort = [ sort_by { $_->{function} } @$file_func ];
 	for my $func (@$file_func_sort) {
 		my $text = comment_inner_text( $func->{comment} );
 
-		# TODO this can be more efficient
+		# NOTE this can be more efficient
 		my $in_merge = 0;
 		my $merge_file = $merge->{$file};
 		for my $func_info (@$merge_file) {
@@ -110,7 +122,9 @@ for my $file (@files) {
 		# need to make sure the comment begins with the function name
 		if($text =~ /^(\n|\s|\*)*$func->{function}/s) {
 			#use DDP; p $func;
-			print $doc_output "=item $func->{function}\n\n";
+			my $func_sig = $func_to_sig->{$func->{function}};
+			die unless $func_sig;
+			print $doc_output "=item $func_sig\n\n";
 			print $doc_output $text;
 			print $doc_output "\n\n";
 		} else {
@@ -120,6 +134,10 @@ for my $file (@files) {
 
 	}
 	print $doc_output "=back\n\n";
+
+	print $doc_output "1;\n";
+
+	$pm_file->spew( ${$doc_output->string_ref} );
 }
 assert( $not_documented->size == @func_not_doc );
 #use DDP; p @func_not_doc;
@@ -130,8 +148,19 @@ sub get_functions {
 	my ($code) = @_;
 	my $text = $code;
 	$text =~ s{  /\*   .*?    \*/}{}xgsm;
-	my @list = $text =~ /^[^(]*? (\w+) \s*  \(/xgm;
-	Set::Scalar->new(@list);
+	my @list = $text =~ /^
+		(             # wrap entire line to get signature (signature group)
+		[^(]*?        # no parens
+		(\w+)         # and identifier (identifier group)
+		\s*           # whitespace [opt]
+		\(            # begin argument list
+		.*            # anything
+		)             # end of (signature group)
+		\s*;          # semicolon at end
+		/xgm;
+	my $func_to_signature = { reverse @list };
+	s/^LEPT_DLL extern // for values %$func_to_signature; # get rid of prefix before return type
+	($func_to_signature, Set::Scalar->new(keys %$func_to_signature) );
 }
 
 sub comment_inner_text {
@@ -182,5 +211,17 @@ sub clean_up {
 	$cleaned;
 }
 
+sub get_pm_info {
+	my ($c_file_name) = @_;
+	my $base = $c_file_name =~ s/\.[ch]$//r;
+	$base =~ s/[.]//; # dot not allowed in identifier
+	my @seg = qw(Image Leptonica Func);
+	my $pm_file = $top->subdir('lib', @seg,)->file("$base.pm");
+	$pm_file->dir->mkpath;
+	$pm_file->touch;
+
+	my $pm_name = join "::", (@seg, $base);
+	($pm_file, $pm_name);
+}
 
 
