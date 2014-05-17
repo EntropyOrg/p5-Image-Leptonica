@@ -1,3 +1,7 @@
+0.03 2014-05-17 16:41:20-0500
+  - doc generation
+  - build improvements
+
 0.02 2014-05-09 21:21:31-0500
   - Inline 'with' support. Thanks for the pointers
     <https://github.com/mohawk2>!
