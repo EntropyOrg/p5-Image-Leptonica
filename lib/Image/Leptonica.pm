@@ -52,7 +52,7 @@ This module supports L<Inline's with functionality|Inline/"Playing 'with' Others
 =cut
 
 sub Inline {
-	return unless $_[0] eq 'C';
+	return unless $_[-1] eq 'C';
 	our $info = ExtUtils::Depends::load('Image::Leptonica');
 	+{
 		%{ Image::Leptonica::Alien(@_) },
