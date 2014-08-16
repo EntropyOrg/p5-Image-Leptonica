@@ -28,8 +28,7 @@ END_BOOT_C
 	);
 
 sub Alien {
-	our $alien = Alien::Leptonica->new;
-	Alien::Leptonica::Inline(@_);
+	goto &Alien::Leptonica::Inline;
 }
 
 =pod
@@ -53,7 +52,7 @@ This module supports L<Inline's with functionality|Inline/"Playing 'with' Others
 
 sub Inline {
 	return unless $_[-1] eq 'C';
-	our $info = ExtUtils::Depends::load('Image::Leptonica');
+	my $info = ExtUtils::Depends::load('Image::Leptonica');
 	+{
 		%{ Image::Leptonica::Alien(@_) },
 		TYPEMAPS  => $info->{typemaps},
