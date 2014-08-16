@@ -22,13 +22,16 @@ $WriteMakefileArgs{CONFIGURE} = sub {
 	my $pkg = ExtUtils::Depends->new('Image::Leptonica',);
 	$pkg->set_inc( $l->cflags );
 	$pkg->set_libs( $l->libs );
-	$pkg->add_typemaps( 'typemap' );
 
 	# make path to install to
 	my @dir = qw( lib Image Leptonica Install );
 	make_path catfile @dir;
+
+	my $typemap_path = catfile( @dir, 'typemap');
+	$pkg->add_typemaps( $typemap_path );
 	# copy typemap into that path
-	copy( 'typemap', catfile( @dir, 'typemap') );
+	copy( 'typemap', $typemap_path );
+
 	# save config to that path
 	$pkg->save_config( catfile( @dir, 'Files.pm' ) );
 
