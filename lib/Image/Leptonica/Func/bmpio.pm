@@ -1,5 +1,5 @@
 package Image::Leptonica::Func::bmpio;
-$Image::Leptonica::Func::bmpio::VERSION = '0.03';
+$Image::Leptonica::Func::bmpio::VERSION = '0.04';
 
 1;
 
@@ -15,7 +15,7 @@ Image::Leptonica::Func::bmpio
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 C<bmpio.c>
 

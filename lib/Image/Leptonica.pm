@@ -1,6 +1,6 @@
 package Image::Leptonica;
 # ABSTRACT: bindings to the Leptonica image processing library
-$Image::Leptonica::VERSION = '0.03';
+$Image::Leptonica::VERSION = '0.04';
 use strict;
 use warnings;
 
@@ -34,7 +34,7 @@ sub Alien {
 
 
 sub Inline {
-	return unless $_[0] eq 'C';
+	return unless $_[-1] eq 'C';
 	our $info = ExtUtils::Depends::load('Image::Leptonica');
 	+{
 		%{ Image::Leptonica::Alien(@_) },
@@ -57,7 +57,7 @@ Image::Leptonica - bindings to the Leptonica image processing library
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 

@@ -1,5 +1,5 @@
 package Image::Leptonica::Func::gplot;
-$Image::Leptonica::Func::gplot::VERSION = '0.03';
+$Image::Leptonica::Func::gplot::VERSION = '0.04';
 
 1;
 
@@ -15,7 +15,7 @@ Image::Leptonica::Func::gplot
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 C<gplot.c>
 

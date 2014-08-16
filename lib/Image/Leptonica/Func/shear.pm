@@ -1,5 +1,5 @@
 package Image::Leptonica::Func::shear;
-$Image::Leptonica::Func::shear::VERSION = '0.03';
+$Image::Leptonica::Func::shear::VERSION = '0.04';
 
 1;
 
@@ -15,7 +15,7 @@ Image::Leptonica::Func::shear
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 C<shear.c>
 

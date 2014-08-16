@@ -1,5 +1,5 @@
 package Image::Leptonica::Func::pix5;
-$Image::Leptonica::Func::pix5::VERSION = '0.03';
+$Image::Leptonica::Func::pix5::VERSION = '0.04';
 
 1;
 
@@ -15,7 +15,7 @@ Image::Leptonica::Func::pix5
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 C<pix5.c>
 

@@ -1,5 +1,5 @@
 package Image::Leptonica::Func::morphapp;
-$Image::Leptonica::Func::morphapp::VERSION = '0.03';
+$Image::Leptonica::Func::morphapp::VERSION = '0.04';
 
 1;
 
@@ -15,7 +15,7 @@ Image::Leptonica::Func::morphapp
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 C<morphapp.c>
 

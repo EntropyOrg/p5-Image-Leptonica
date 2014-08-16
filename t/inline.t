@@ -4,9 +4,9 @@ use Module::Load;
 use_ok('Image::Leptonica');
 
 SKIP: {
-	eval { load 'Inline' } or do {
+	eval { load 'Inline::C' } or do {
 		my $error = $@;
-		skip "Inline not installed", 1 if $error;
+		skip "Inline::C not installed", 1 if $error;
 	};
 
 	Inline->import( with => qw(Image::Leptonica) );

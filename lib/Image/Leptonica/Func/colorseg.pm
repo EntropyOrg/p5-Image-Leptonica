@@ -1,5 +1,5 @@
 package Image::Leptonica::Func::colorseg;
-$Image::Leptonica::Func::colorseg::VERSION = '0.03';
+$Image::Leptonica::Func::colorseg::VERSION = '0.04';
 
 1;
 
@@ -15,7 +15,7 @@ Image::Leptonica::Func::colorseg
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 C<colorseg.c>
 

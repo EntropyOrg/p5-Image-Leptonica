@@ -1,5 +1,5 @@
 package Image::Leptonica::Func::fmorphauto;
-$Image::Leptonica::Func::fmorphauto::VERSION = '0.03';
+$Image::Leptonica::Func::fmorphauto::VERSION = '0.04';
 
 1;
 
@@ -15,7 +15,7 @@ Image::Leptonica::Func::fmorphauto
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 C<fmorphauto.c>
 

@@ -1,5 +1,5 @@
 package Image::Leptonica::Func::list;
-$Image::Leptonica::Func::list::VERSION = '0.03';
+$Image::Leptonica::Func::list::VERSION = '0.04';
 
 1;
 
@@ -15,7 +15,7 @@ Image::Leptonica::Func::list
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 C<list.c>
 

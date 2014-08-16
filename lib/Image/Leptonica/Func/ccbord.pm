@@ -1,5 +1,5 @@
 package Image::Leptonica::Func::ccbord;
-$Image::Leptonica::Func::ccbord::VERSION = '0.03';
+$Image::Leptonica::Func::ccbord::VERSION = '0.04';
 
 1;
 
@@ -15,7 +15,7 @@ Image::Leptonica::Func::ccbord
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 C<ccbord.c>
 
