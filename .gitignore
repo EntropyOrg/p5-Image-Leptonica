@@ -2,3 +2,4 @@ Image-Leptonica-*
 test.db
 doc.json
 t/pixread.t
+.build
